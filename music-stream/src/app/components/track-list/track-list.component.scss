@@ -1,0 +1,75 @@
+.track-list-container {
+  .banner {
+    height: 200px;
+    margin: -20px -20px 20px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #2A2A2A;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+
+    i {
+      color: #808080;
+      margin-right: 10px;
+    }
+
+    input {
+      background: none;
+      border: none;
+      color: white;
+      width: 100%;
+      outline: none;
+
+      &::placeholder {
+        color: #808080;
+      }
+    }
+  }
+
+  .track-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      padding: 15px;
+      color: #808080;
+      font-weight: normal;
+      border-bottom: 1px solid #2A2A2A;
+    }
+
+    td {
+      padding: 15px;
+      border-bottom: 1px solid #2A2A2A;
+
+      &.singer-cell {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 5px;
+          object-fit: cover;
+        }
+      }
+    }
+
+    tr:hover {
+      background-color: #2A2A2A;
+    }
+  }
+}
+

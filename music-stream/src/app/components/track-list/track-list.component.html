@@ -1,1 +1,37 @@
-<p>track-list works!</p>
+<div class="track-list-container">
+  <div class="banner">
+    <img src="assets/banner.jpg" alt="Music Banner" />
+  </div>
+
+  <div class="search-bar">
+    <i class="material-icons">search</i>
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search Music"
+    />
+  </div>
+
+  <table class="track-table">
+    <thead>
+    <tr>
+      <th>Singer</th>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Duration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let track of (tracks$ | async) | trackFilter:searchQuery">
+      <td class="singer-cell">
+        <img [src]="track.imageUrl || 'assets/default-album.png'" [alt]="track.artist" />
+        <span>{{track.artist}}</span>
+      </td>
+      <td>{{track.title}}</td>
+      <td>{{track.category}}</td>
+      <td>{{track.duration | duration}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

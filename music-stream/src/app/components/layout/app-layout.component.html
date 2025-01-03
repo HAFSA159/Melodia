@@ -1,0 +1,22 @@
+<div class="app-container">
+  <nav class="sidebar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Melodia Logo" />
+      <span class="logo-text">MELODIA</span>
+    </div>
+
+    <ul class="nav-items">
+      <li *ngFor="let item of navItems">
+        <a [routerLink]="item.route" routerLinkActive="active">
+          <i class="material-icons">{{item.icon}}</i>
+          <span>{{item.label}}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+

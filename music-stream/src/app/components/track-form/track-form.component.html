@@ -1,1 +1,29 @@
-<p>track-form works!</p>
+<form [formGroup]="trackForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">Title:</label>
+    <input id="title" formControlName="title" type="text" />
+  </div>
+  <div>
+    <label for="artist">Artist:</label>
+    <input id="artist" formControlName="artist" type="text" />
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+  </div>
+  <div>
+    <label for="category">Category:</label>
+    <select id="category" formControlName="category">
+      <option value="pop">Pop</option>
+      <option value="rock">Rock</option>
+      <option value="rap">Rap</option>
+      <option value="cha3bi">Cha3bi</option>
+    </select>
+  </div>
+  <div>
+    <label for="audioFile">Audio File:</label>
+    <input id="audioFile" formControlName="audioFile" type="file" accept=".mp3,.wav,.ogg" />
+  </div>
+  <button type="submit" [disabled]="!trackForm.valid">Add Track</button>
+</form>
+

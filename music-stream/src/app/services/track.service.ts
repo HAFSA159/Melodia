@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import {Observable, from, ObservedValueOf} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Track } from '../models/track';
 import { IndexedDBService } from './indexeddb.service';
@@ -15,7 +15,11 @@ export class TrackService {
   }
 
   addTrack(track: Track, audioBlob: Blob): Observable<Track> {
-    const newTrack = { ...track, id: Date.now().toString() };
+    const newTrack: Track = {
+      ...track,
+      id: Date.now().toString(),
+      dateAdded: new Date(),  // Using dateAdded consistently
+    };
     return from(this.indexedDBService.addTrack(newTrack)).pipe(
       map(() => {
         this.indexedDBService.addAudioFile(newTrack.id, audioBlob);
@@ -24,7 +28,7 @@ export class TrackService {
     );
   }
 
-  updateTrack(track: Track): Observable<Track> {
+  updateTrack(track: Track): Observable<ObservedValueOf<Promise<string>>> {
     return from(this.indexedDBService.updateTrack(track));
   }
 

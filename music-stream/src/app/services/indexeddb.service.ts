@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// @ts-ignore
 import { openDB, DBSchema, IDBPDatabase } from 'idb';
 import { Track } from '../models/track';
 
