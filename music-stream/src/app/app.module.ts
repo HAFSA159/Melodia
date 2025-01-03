@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AppComponent } from './app.component';
-import { trackReducer } from './store/reducers/track.reducer';
-import { TrackEffects } from './store/effects/track.effects';
+import { trackReducer } from './store/track/track.reducer';
+import { TrackEffects } from './store/track/track.effects';
 
 @NgModule({
   declarations: [AppComponent],

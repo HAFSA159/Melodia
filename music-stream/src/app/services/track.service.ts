@@ -1,34 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Track } from '../models/track';
+import { IndexedDBService } from './indexeddb.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TrackService {
-
-  private apiUrl = 'https://api.example.com/tracks';
-
-  constructor(private http: HttpClient) { }
+  constructor(private indexedDBService: IndexedDBService) {}
 
   getTracks(): Observable<Track[]> {
-    return this.http.get<Track[]>(this.apiUrl);
+    return from(this.indexedDBService.getAllTracks());
   }
 
-  getTrack(id: number): Observable<Track> {
-    return this.http.get<Track>(`${this.apiUrl}/${id}`);
-  }
-
-  addTrack(track: Track): Observable<Track> {
-    return this.http.post<Track>(this.apiUrl, track);
+  addTrack(track: Track, audioBlob: Blob): Observable<Track> {
+    const newTrack = { ...track, id: Date.now().toString() };
+    return from(this.indexedDBService.addTrack(newTrack)).pipe(
+      map(() => {
+        this.indexedDBService.addAudioFile(newTrack.id, audioBlob);
+        return newTrack;
+      })
+    );
   }
 
   updateTrack(track: Track): Observable<Track> {
-    return this.http.put<Track>(`${this.apiUrl}/${track.id}`, track);
+    return from(this.indexedDBService.updateTrack(track));
   }
 
-  deleteTrack(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteTrack(id: string): Observable<void> {
+    return from(this.indexedDBService.deleteTrack(id));
+  }
+
+  getAudioFile(id: string): Observable<Blob | undefined> {
+    return from(this.indexedDBService.getAudioFile(id));
   }
 }
+

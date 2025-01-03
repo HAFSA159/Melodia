@@ -5,9 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b11d0565-f7f5-4f49-bc21-1a71d757929a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/music-stream/src/app/app.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music-stream/src/app/store/actions/track.actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music-stream/src/app/store/effects/track.effects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/music-stream/src/app/services/indexeddb.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/music-stream/src/app/store/track/track.effects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/models/track.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/models/track.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/services/track.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/services/track.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/actions/track.actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/store/track/track.actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/actions/track.enum.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/actions/track.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/effects/track.effects.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/effects/track.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/effects/track.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/reducers/track.reducer.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/reducers/track.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/store/track/track.reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/selectors/track.selector.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/src/app/store/selectors/track.selector.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/store/track/track.selector.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music-stream/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +58,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\YouCode\Desktop\Melodia\music-stream\src\app\store\track" />
+      <recent name="C:\Users\YouCode\Desktop\Melodia\music-stream\src\app\store" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -61,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1735808149613</updated>
       <workItem from="1735808158147" duration="4147000" />
-      <workItem from="1735900973777" duration="2526000" />
+      <workItem from="1735900973777" duration="3509000" />
     </task>
     <servers />
   </component>

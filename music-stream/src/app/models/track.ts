@@ -1,15 +1,10 @@
-export class Track {
-  id: number;
+export interface Track {
+  id: string;
   title: string;
   artist: string;
-  genre: string;
+  description?: string;
+  dateAdded: Date;
   duration: number;
-
-  constructor(id: number, title: string, artist: string, genre: string, duration: number) {
-    this.id = id;
-    this.title = title;
-    this.artist = artist;
-    this.genre = genre;
-    this.duration = duration;
-  }
+  category: string;
+  audioUrl: string;
 }
