@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b11d0565-f7f5-4f49-bc21-1a71d757929a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/music-stream/src/app/pages/albums/albums.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music-stream/src/app/pages/home/home.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music-stream/src/app/pages/library/library.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music-stream/src/app/pages/playlists/playlists.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music-stream/src/app/pipes/duration.pipe.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/components/track-form/track-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/components/track-form/track-form.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/components/track-form/track-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/components/track-form/track-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/components/track-list/track-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/components/track-list/track-list.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/components/track-list/track-list.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/components/track-list/track-list.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/components/track-list/track-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/components/track-list/track-list.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/services/indexeddb.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/services/indexeddb.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/services/track.service.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/music-stream/src/app/services/track.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/music-stream/src/app/services/track.service.ts" afterDir="false" />
-    </list>
+    <list default="true" id="b11d0565-f7f5-4f49-bc21-1a71d757929a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,7 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1735808149613</updated>
       <workItem from="1735808158147" duration="4147000" />
-      <workItem from="1735900973777" duration="6403000" />
+      <workItem from="1735900973777" duration="6723000" />
     </task>
     <servers />
   </component>

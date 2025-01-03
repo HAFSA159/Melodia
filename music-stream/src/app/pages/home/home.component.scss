@@ -1,0 +1,39 @@
+.home-container {
+  padding: 20px;
+
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+  }
+}
+
+.featured-section {
+  margin-top: 20px;
+}
+
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.music-card {
+  background: #2c2c2c;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #b3b3b3;
+  }
+}

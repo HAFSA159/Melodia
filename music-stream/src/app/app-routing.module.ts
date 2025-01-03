@@ -1,35 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppLayoutComponent } from './components/layout/app-layout.component';
+
+import { HomeComponent } from './pages/home/home.component';
+import { AlbumsComponent } from './pages/albums/albums.component';
+import { LibraryComponent } from './pages/library/library.component';
+import { PlaylistsComponent } from './pages/playlists/playlists.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: AppLayoutComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      },
-      {
-        path: 'home',
-        loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
-      },
-      {
-        path: 'playlists',
-        loadChildren: () => import('./pages/playlists/playlists.module').then(m => m.PlaylistsModule)
-      },
-      {
-        path: 'albums',
-        loadChildren: () => import('./pages/albums/albums.module').then(m => m.AlbumsModule)
-      },
-      {
-        path: 'library',
-        loadChildren: () => import('./pages/library/library.module').then(m => m.LibraryModule)
-      }
-    ]
-  }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'albums', component: AlbumsComponent },
+  { path: 'library', component: LibraryComponent },
+  { path: 'playlists', component: PlaylistsComponent },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({
@@ -37,4 +20,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
