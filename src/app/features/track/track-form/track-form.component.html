@@ -1,0 +1,51 @@
+<div class="mt-20 max-w-md mx-auto bg-gray-900 p-8 rounded-lg shadow-lg">
+  <h2 class="text-3xl font-bold mb-6 text-white text-center">Add Track</h2>
+  <form (ngSubmit)="addTrack()" class="space-y-6">
+    <div>
+      <label for="title" class="block text-sm font-medium text-gray-300">Track Name</label>
+      <input
+        [(ngModel)]="track.title"
+        name="title"
+        id="title"
+        required
+        class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+      />
+    </div>
+    <div>
+      <label for="artist" class="block text-sm font-medium text-gray-300">Artist</label>
+      <input
+        [(ngModel)]="track.artist"
+        name="artist"
+        id="artist"
+        required
+        class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+      />
+    </div>
+    <div>
+      <label for="description" class="block text-sm font-medium text-gray-300">Description</label>
+      <textarea
+        [(ngModel)]="track.description"
+        name="description"
+        id="description"
+        rows="3"
+        class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+      ></textarea>
+    </div>
+    <div>
+      <label for="category" class="block text-sm font-medium text-gray-300">Category</label>
+      <input
+        [(ngModel)]="track.category"
+        name="category"
+        id="category"
+        required
+        class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200"
+    >
+      Add Track
+    </button>
+  </form>
+</div>
