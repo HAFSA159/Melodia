@@ -19,7 +19,6 @@ export class LibraryComponent implements OnInit {
 
   ngOnInit() {
     this.loadTracks();
-    console.log(this.tracks$);
   }
 
   loadTracks() {
@@ -27,6 +26,8 @@ export class LibraryComponent implements OnInit {
   }
 
   deleteTrack(id: number) {
-    this.store.dispatch(TrackActions.deleteTrack({ trackId: id.toString() }));
+    if (confirm('Are you sure you want to delete this track?')) {
+      this.store.dispatch(TrackActions.deleteTrack({ trackId: id.toString() }));
+    }
   }
 }

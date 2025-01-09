@@ -18,9 +18,9 @@ export interface MusicStreamDB extends DBSchema {
       id?: number;
       title: string;
       artist: string;
-      description?: string; // Max 200 characters
-      category: string; // E.g., pop, rock, rap, etc.
-      duration: number; // Calculated automatically
+      description?: string;
+      category: string;
+      duration: number;
       createdAt: Date;
     };
   };

@@ -11,8 +11,51 @@ import * as TrackActions from '../../../store/track.actions';
   styleUrls: ['./track-form.component.scss'],
 })
 export class TrackFormComponent implements OnInit {
-  trackForm: FormGroup ;
+  trackForm: FormGroup;
   submitted = false;
+  categories: string[] = [
+    'Rock',
+    'Pop',
+    'Hip Hop',
+    'Jazz',
+    'Classical',
+    'Electronic',
+    'R&B',
+    'Country',
+    'Metal',
+    'Reggae',
+    'Folk',
+    'Soul',
+    'Funk',
+    'Punk',
+    'Gospel',
+    'Latin',
+    'K-Pop',
+    'Ska',
+    'Indie',
+    'Disco',
+    'EDM',
+    'Trap',
+    'Ambient',
+    'Grunge',
+    'Techno',
+    'House',
+    'Synthwave',
+    'Progressive',
+    'Opera',
+    'Dancehall',
+    'World Music',
+    'Lo-fi',
+    'Chillout',
+    'Acoustic',
+    'New Age',
+    'Dubstep',
+    'Alternative',
+    'Hardcore',
+    'Soundtrack',
+    'chaabi'
+  ];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +71,7 @@ export class TrackFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.categories.sort((a, b) => a.localeCompare(b));
     this.trackForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       artist: ['', [Validators.required]],
