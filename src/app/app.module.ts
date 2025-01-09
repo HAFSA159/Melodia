@@ -12,13 +12,16 @@ import { TrackEffects } from "./store/track.effects";
 import { trackReducer } from "./store/track.reducer";
 import { HomeComponent } from './features/home/home.component';
 import {TrackFormComponent} from "./features/track/track-form/track-form.component";
+import {TrackModule} from "./features/track/track.module";
+import {imageReducer} from "./store/image/image.reducer";
+import {ImageEffects} from "./store/image/image.effects";
 
 @NgModule({
   declarations: [
     AppComponent,
-    TrackDetailsComponent,
-    TrackFormComponent,
     HomeComponent,
+    TrackFormComponent,
+    TrackDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -27,9 +30,8 @@ import {TrackFormComponent} from "./features/track/track-form/track-form.compone
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-
-    StoreModule.forRoot({ tracks: trackReducer }),
-    EffectsModule.forRoot([TrackEffects])
+    StoreModule.forRoot({ tracks: trackReducer, image: imageReducer }),
+    EffectsModule.forRoot([TrackEffects, ImageEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

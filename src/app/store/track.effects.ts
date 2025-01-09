@@ -50,6 +50,7 @@ export class TrackEffects {
               artist: string;
               description?: string;
               category: string;
+              imageUrl: string;
               duration: number;
               createdAt: Date;
             };

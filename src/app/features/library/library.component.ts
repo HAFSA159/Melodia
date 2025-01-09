@@ -52,6 +52,11 @@ export class LibraryComponent implements OnInit {
       description: [''],
       category: ['', Validators.required],
     });
+
+/*
+    this.imageUrl$ = this.store.pipe/!**!/(sel?/!**!/ect((state) => state.image.currentImageUrl));
+*/
+
   }
 
   ngOnInit() {this.loadTracks();}
@@ -81,6 +86,9 @@ export class LibraryComponent implements OnInit {
     this.trackForm.reset();
     this.editMode = false;
   }
+
+
+
 
   addOrUpdateTrack() {
     this.submitted = true;

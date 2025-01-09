@@ -23,7 +23,6 @@
         <h2>{{ editMode ? 'Update Track' : 'Add Track' }}</h2>
         <input formControlName="title" placeholder="Track Title" class="input-class"/>
         <input formControlName="artist" placeholder="Artist Name" class="input-class"/>
-        <input formControlName="category" placeholder="Category" class="input-class"/>
         <select formControlName="category" class="input-class">
           <option value="" disabled selected>Select Category</option>
           <option *ngFor="let category of categories" [value]="category">
@@ -55,11 +54,8 @@
       <div *ngIf="tracks.length > 0; else noTracks">
         <div *ngFor="let track of tracks" class="grid grid-cols-4 py-3 border-b border-purple-800 hover:bg-purple-800/50">
           <div class="col-span-1 flex items-center gap-3">
-            <img
-              src="assets/images/track_default_bg.jpg"
-              class="w-8 h-8 rounded"
-              alt="Track thumbnail"
-            />
+            <img [src]="track.imageUrl ? track.imageUrl : ''" class="w-8 h-8 rounded" alt="Track thumbnail" />
+
             <span class="text-sm">{{ track.title }}</span>
           </div>
           <div class="col-span-1 flex items-center text-sm text-start">{{ track.artist }}</div>
