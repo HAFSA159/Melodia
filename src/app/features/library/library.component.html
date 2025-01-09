@@ -21,9 +21,9 @@
          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6">
       <div *ngFor="let track of tracks"
            class="group relative rounded-lg h-48 overflow-hidden bg-gray-800">
-        <a [routerLink]="['/track/details']">
+        <a [routerLink]="['/track/details', track.id]">
           <div class="absolute inset-0 bg-cover bg-center"
-               [style.backgroundImage]="'url(../../../assets/images/track_default_bg.pg)'">
+               [ngStyle]="{'background-image': 'url(assets/images/track_default_bg.jpg)'}">
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div class="absolute bottom-0 left-0 p-4 w-full">
