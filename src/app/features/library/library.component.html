@@ -17,6 +17,29 @@
     </h1>
   </div>
 
+  <div *ngIf="editMode" class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <form [formGroup]="trackForm" (ngSubmit)="addOrUpdateTrack()">
+        <h2>{{ editMode ? 'Update Track' : 'Add Track' }}</h2>
+        <input formControlName="title" placeholder="Track Title" class="input-class"/>
+        <input formControlName="artist" placeholder="Artist Name" class="input-class"/>
+        <input formControlName="category" placeholder="Category" class="input-class"/>
+        <select formControlName="category" class="input-class">
+          <option value="" disabled selected>Select Category</option>
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </option>
+        </select>
+        <textarea formControlName="description" placeholder="Track Description" class="input-class"></textarea>
+        <button type="submit" [disabled]="trackForm.invalid" class="submit-btn">{{ editMode ? 'Update Track' : 'Add Track' }}
+        </button>
+        <button type="button" (click)="closeModal()" class="close-btn">
+          Close
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Table Content -->
   <div class="px-20">
     <!-- Table Header -->
@@ -43,10 +66,10 @@
           <div class="col-span-1 flex items-center text-sm">{{ track.category }}</div>
           <div class="col-span-1 flex items-center text-sm gap-4">
             <!-- Update Icon -->
-            <button class="hover:text-yellow-500">
+            <button (click)="editTrack(track)" class="hover:text-yellow-500">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M11 4h10M9 16v4a1 1 0 001 1h4m-5-5l6-6a2 2 0 012.828 0l2 2a2 2 0 010 2.828l-6 6m-4 2H7a2 2 0 01-2-2v-4a2 2 0 01.586-1.414l10-10" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4h10M9 16v4a1 1 0 001 1h4m-5-5l6-6a2 2 0 012.828 0l2 2a2 2 0 010 2.828l-6 6m-4 2H7a2 2 0 01-2-2v-4a2 2 0 01.586-1.414l10-10"
+                />
               </svg>
             </button>
 

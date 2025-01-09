@@ -4,6 +4,7 @@ import {catchError, map, mergeMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {TracksService} from '../features/services/tracks.service';
 import * as TrackActions from './track.actions';
+import {Track} from "../models/track.model";
 
 @Injectable()
 export class TrackEffects {
@@ -42,23 +43,23 @@ export class TrackEffects {
       ofType(TrackActions.updateTrack),
       mergeMap(action =>
         this.trackService.updateTrack(action.track).pipe(
-          map(track => TrackActions.updateTrackSuccess({
-            track: track as unknown as {
+          map(track => {
+            const updatedTrack: Track = track as unknown as {
               id?: number;
               title: string;
               artist: string;
               description?: string;
               category: string;
               duration: number;
-              createdAt: Date
-            }
-          })),
-          catchError(error => of(TrackActions.updateTrackFailure({error})))
+              createdAt: Date;
+            };
+            return TrackActions.updateTrackSuccess({ track: updatedTrack });
+          }),
+          catchError(error => of(TrackActions.updateTrackFailure({ error })))
         )
       )
     )
   );
-
   deleteTrack$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TrackActions.deleteTrack),

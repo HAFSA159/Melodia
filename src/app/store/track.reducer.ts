@@ -20,8 +20,9 @@ export const trackReducer = createReducer(
   on(TrackActions.addTrackFailure, (state, { error }) => ({ ...state, error })),
   on(TrackActions.updateTrackSuccess, (state, { track }) => ({
     ...state,
-    tracks: state.tracks.map(t => t.id === track.id ? track : t)
+    tracks: state.tracks.map(t => (t?.id && track?.id && t.id === track.id ? track : t)),
   })),
+
   on(TrackActions.updateTrackFailure, (state, { error }) => ({ ...state, error })),
   on(TrackActions.deleteTrackSuccess, (state, { trackId }) => ({
     ...state,

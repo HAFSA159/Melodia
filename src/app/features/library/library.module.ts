@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LibraryRoutingModule } from './library-routing.module';
 import { LibraryComponent } from './library.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { LibraryComponent } from './library.component';
   ],
   imports: [
     CommonModule,
-    LibraryRoutingModule
+    LibraryRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class LibraryModule { }
