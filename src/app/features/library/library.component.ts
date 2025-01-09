@@ -30,4 +30,5 @@ export class LibraryComponent implements OnInit {
       this.store.dispatch(TrackActions.deleteTrack({ trackId: id.toString() }));
     }
   }
+
 }
