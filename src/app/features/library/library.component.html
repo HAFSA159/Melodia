@@ -44,8 +44,8 @@
   <div class="px-20">
     <!-- Table Header -->
     <div class="grid grid-cols-4 border-b border-purple-700 pb-2 text-sm font-medium">
-      <div class="col-span-1">Artist</div>
       <div class="col-span-1">Title</div>
+      <div class="col-span-1">Artist</div>
       <div class="col-span-1">Category</div>
       <div class="col-span-1">Operation</div>
     </div>
@@ -60,9 +60,9 @@
               class="w-8 h-8 rounded"
               alt="Track thumbnail"
             />
-            <span class="text-sm">{{ track.artist }}</span>
+            <span class="text-sm">{{ track.title }}</span>
           </div>
-          <div class="col-span-1 flex items-center text-sm text-start">{{ track.title }}</div>
+          <div class="col-span-1 flex items-center text-sm text-start">{{ track.artist }}</div>
           <div class="col-span-1 flex items-center text-sm">{{ track.category }}</div>
           <div class="col-span-1 flex items-center text-sm gap-4">
             <!-- Update Icon -->

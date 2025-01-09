@@ -1,60 +1,38 @@
-<div class="mt-20 max-w-md mx-auto bg-gray-900 p-8 rounded-lg shadow-lg">
-  <h2 class="text-3xl font-bold mb-6 text-white text-center">Add Track</h2>
-  <form [formGroup]="trackForm" (ngSubmit)="addTrack()" class="space-y-6">
-    <div>
-      <label for="title" class="block text-sm font-medium text-gray-300">Track Name</label>
-      <input
-        formControlName="title"
-        id="title"
-        class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-        [ngClass]="{ 'border-red-500': submitted && f['title'].errors }"
-      />
-      <div *ngIf="submitted && f['title'].errors" class="text-red-500 text-xs mt-1">
+<div class="form-container">
+  <h2 class="form-title">Add Track</h2>
+  <form [formGroup]="trackForm" (ngSubmit)="addTrack()" class="form">
+    <div class="form-group">
+      <label for="title" class="form-label">Track Name</label>
+      <input formControlName="title" id="title" class="form-input" [ngClass]="{ 'error': submitted && f['title'].errors }"/>
+      <div *ngIf="submitted && f['title'].errors" class="form-error">
         <span *ngIf="f['title'].errors['required']">Track name is required</span>
       </div>
     </div>
-    <div>
-      <label for="artist" class="block text-sm font-medium text-gray-300">Artist</label>
-      <input
-        formControlName="artist"
-        id="artist"
-        class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-        [ngClass]="{ 'border-red-500': submitted && f['artist'].errors }"
-      />
-      <div *ngIf="submitted && f['artist'].errors" class="text-red-500 text-xs mt-1">
+
+    <div class="form-group">
+      <label for="artist" class="form-label">Artist</label>
+      <input formControlName="artist" id="artist" class="form-input" [ngClass]="{ 'error': submitted && f['artist'].errors }"/>
+      <div *ngIf="submitted && f['artist'].errors" class="form-error">
         <span *ngIf="f['artist'].errors['required']">Artist name is required</span>
       </div>
     </div>
-    <div>
-      <label for="description" class="block text-sm font-medium text-gray-300">Description</label>
-      <textarea
-        formControlName="description"
-        id="description"
-        rows="3"
-        class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-      ></textarea>
+
+    <div class="form-group">
+      <label for="description" class="form-label">Description</label>
+      <textarea formControlName="description" id="description" class="form-input"></textarea>
     </div>
-    <div>
-      <label for="category" class="block text-sm font-medium text-gray-300">Category</label>
-      <select
-        formControlName="category"
-        id="category"
-        class="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-        [ngClass]="{ 'border-red-500': submitted && f['category'].errors }"
-      >
-        <option value="">Select a category</option>  <!-- Changed this line -->
+
+    <div class="form-group">
+      <label for="category" class="form-label">Category</label>
+      <select formControlName="category" id="category" class="form-input" [ngClass]="{ 'error': submitted && f['category'].errors }">
+        <option value="">Select a category</option>
         <option *ngFor="let category of categories" [value]="category">{{category}}</option>
       </select>
-      <div *ngIf="submitted && f['category'].errors" class="text-red-500 text-xs mt-1">
+      <div *ngIf="submitted && f['category'].errors" class="form-error">
         <span *ngIf="f['category'].errors['required']">Category is required</span>
       </div>
     </div>
 
-    <button
-      type="submit"
-      class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200"
-    >
-      Add Track
-    </button>
+    <button type="submit" class="submit-btn">Add Track</button>
   </form>
 </div>
