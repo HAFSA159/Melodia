@@ -11,11 +11,13 @@ import { EffectsModule } from "@ngrx/effects";
 import { TrackEffects } from "./store/track.effects";
 import { trackReducer } from "./store/track.reducer";
 import { HomeComponent } from './features/home/home.component';
+import {TrackFormComponent} from "./features/track/track-form/track-form.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     TrackDetailsComponent,
+    TrackFormComponent,
     HomeComponent,
   ],
   imports: [
@@ -25,6 +27,7 @@ import { HomeComponent } from './features/home/home.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+
     StoreModule.forRoot({ tracks: trackReducer }),
     EffectsModule.forRoot([TrackEffects])
   ],

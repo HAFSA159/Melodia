@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Track } from '../../../models/track.model';
@@ -45,22 +45,17 @@ export class TrackFormComponent implements OnInit {
     private store: Store,
     private router: Router
   ) {
-    this.trackForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
-      artist: ['', [Validators.required]],
-      description: [''],
-      category: ['', [Validators.required]]
+    this.trackForm = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      artist: new FormControl('', [Validators.required]),
+      description: new FormControl(''),
+      category: new FormControl('', [Validators.required]),
     });
   }
 
   ngOnInit() {
     this.categories.sort((a, b) => a.localeCompare(b));
-    this.trackForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
-      artist: ['', [Validators.required]],
-      description: [''],
-      category: ['', [Validators.required]]
-    });
+
   }
 
   get f() { return this.trackForm.controls; }
