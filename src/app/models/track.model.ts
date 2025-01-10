@@ -21,6 +21,7 @@ export interface MusicStreamDB extends DBSchema {
       description?: string;
       category: string;
       imageUrl: string;
+      audioFile?: File;
       duration: number;
       createdAt: Date;
     };

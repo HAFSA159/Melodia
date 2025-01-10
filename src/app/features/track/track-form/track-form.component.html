@@ -24,7 +24,7 @@
 
     <div class="form-group">
       <label for="category" class="form-label">Category</label>
-      <select formControlName="category" id="category" class="form-input">
+      <select formControlName="category" id="category"  class="form-select">
         <option value="">Select a category</option>
         <option *ngFor="let category of categories" [value]="category">{{category}}</option>
       </select>
@@ -37,8 +37,21 @@
     </div>
     <div class="form-group">
       <label for="imageUpload" class="form-label">Upload Image</label>
-      <input formControlName="imageUrl" type="file" (change)="onImageUpload($event)" id="imageUpload" class="form-input" />
+      <input
+        id="imageUpload"
+        type="file"
+        (change)="onImageUpload($event)"
+        accept="image/*"
+      />
+      <div *ngIf="selectedFileName" class="file-name">
+        Selected file: {{ selectedFileName }}
+      </div>
     </div>
+
+    <!--<div class="form-group">
+      <label for="audioUpload" class="form-label">Upload Audio</label>
+      <input formControlName="audioFile" type="file" (change)="onAudioUpload($event)" id="audioUpload" class="form-input" accept="audio/*" />
+    </div>-->
 
 
 

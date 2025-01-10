@@ -43,7 +43,7 @@ export class ImageEffects {
               ImageActions.uploadImageSuccess({
                 id: request.result,
                 name: image.name,
-                url: imageUrl,
+                url: imageUrl, // Pass the URL back in the success action
               })
             );
           };
@@ -57,6 +57,7 @@ export class ImageEffects {
       )
     )
   );
+
   retrieveImage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ImageActions.retrieveImage),
@@ -97,5 +98,5 @@ export class ImageEffects {
       )
     )
   );
-
 }
+

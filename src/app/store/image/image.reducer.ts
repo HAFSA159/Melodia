@@ -20,10 +20,11 @@ export const imageReducer = createReducer(
     loading: true,
     error: undefined,
   })),
-  on(ImageActions.uploadImageSuccess, (state, { id, name }) => ({
+  on(ImageActions.uploadImageSuccess, (state, { id, name, url }) => ({
     ...state,
     loading: false,
     images: [...state.images, { id, name }],
+    currentImageUrl: url,
   })),
   on(ImageActions.uploadImageFailure, (state, { error }) => ({
     ...state,

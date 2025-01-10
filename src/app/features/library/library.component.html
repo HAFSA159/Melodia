@@ -42,24 +42,33 @@
   <!-- Table Content -->
   <div class="px-20">
     <!-- Table Header -->
-    <div class="grid grid-cols-4 border-b border-purple-700 pb-2 text-sm font-medium">
+    <div class="grid grid-cols-5 border-b border-purple-700 pb-2 text-sm font-medium">
       <div class="col-span-1">Title</div>
       <div class="col-span-1">Artist</div>
       <div class="col-span-1">Category</div>
+      <div class="col-span-1">Duration</div>
       <div class="col-span-1">Operation</div>
     </div>
 
     <!-- Table Content -->
     <ng-container *ngIf="tracks$ | async as tracks">
       <div *ngIf="tracks.length > 0; else noTracks">
-        <div *ngFor="let track of tracks" class="grid grid-cols-4 py-3 border-b border-purple-800 hover:bg-purple-800/50">
+        <div *ngFor="let track of tracks" class="grid grid-cols-5 py-3 border-b border-purple-800 hover:bg-purple-800/50">
           <div class="col-span-1 flex items-center gap-3">
-            <img [src]="track.imageUrl ? track.imageUrl : ''" class="w-8 h-8 rounded" alt="Track thumbnail" />
-
+            <div class="w-10 h-10 rounded bg-purple-700/30 overflow-hidden">
+              <img *ngIf="track.imageUrl" [src]="track.imageUrl" alt="Track Image" />
+            </div>
             <span class="text-sm">{{ track.title }}</span>
           </div>
+
           <div class="col-span-1 flex items-center text-sm text-start">{{ track.artist }}</div>
+
           <div class="col-span-1 flex items-center text-sm">{{ track.category }}</div>
+
+          <div class="flex items-center">
+            <span class="text-sm text-gray-500">//{{ track.duration }}</span>
+          </div>
+
           <div class="col-span-1 flex items-center text-sm gap-4">
             <!-- Update Icon -->
             <button (click)="editTrack(track)" class="hover:text-yellow-500">
@@ -68,7 +77,6 @@
                 />
               </svg>
             </button>
-
             <!-- Delete Icon -->
             <button class="hover:text-red-500" (click)="deleteTrack(track.id!)">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
@@ -76,8 +84,8 @@
                       d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-
           </div>
+
         </div>
       </div>
     </ng-container>
