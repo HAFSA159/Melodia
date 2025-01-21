@@ -7,7 +7,8 @@ import {Track} from "../../models/track.model";
   providedIn: 'root',
 })
 export class TracksService {
-  constructor(private indexedDbService: IndexedDbService) {}
+  constructor(private indexedDbService: IndexedDbService) {
+  }
 
   addTrack(track: any): Observable<any> {
     return this.indexedDbService.addTrack(track);
@@ -29,5 +30,12 @@ export class TracksService {
     return this.indexedDbService.deleteTrack(id);
   }
 
+  toggleFavorite(trackId: number): Observable<void> {
+    return this.indexedDbService.toggleFavorite(trackId);
+  }
+
+  getFavoriteTracks(): Observable<Track[]> {
+    return this.indexedDbService.getFavoriteTracks();
+  }
 }
 

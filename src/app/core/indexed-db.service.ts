@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { openDB, IDBPDatabase } from 'idb';
 import { Observable, from } from 'rxjs';
-import { MusicStreamDB } from '../models/track.model';
+import {MusicStreamDB, Track} from '../models/track.model';
 import { AudioDbService } from './audio-db.service';
 
 @Injectable({
@@ -143,6 +143,35 @@ export class IndexedDbService {
           await this.audioDbService.deleteAudioFile(track.audioId).toPromise();
         }
         await this.db.delete('tracks', id);
+      })()
+    );
+  }
+
+  toggleFavorite(trackId: number): Observable<void> {
+    return from(
+      (async () => {
+        await this.ensureDBInitialized();
+        const track = await this.db.get('tracks', trackId);
+
+        if (track) {
+          track.isFavorite = !track.isFavorite;
+          await this.db.put('tracks', { ...track, createdAt: new Date() });
+        }
+      })()
+    );
+  }
+
+  getFavoriteTracks(): Observable<Track[]> {
+    return from(
+      (async () => {
+        await this.ensureDBInitialized();
+        const tracks = await this.db.getAll('tracks');
+        return tracks
+          .filter((track) => track.isFavorite)
+          .map((track) => ({
+            ...track,
+            isFavorite: track.isFavorite as boolean,
+          }));
       })()
     );
   }

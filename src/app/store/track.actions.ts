@@ -17,3 +17,18 @@ export const deleteTrack = createAction('[Track] Delete Track', props<{ trackId:
 export const deleteTrackSuccess = createAction('[Track] Delete Track Success', props<{ trackId: string }>());
 export const deleteTrackFailure = createAction('[Track] Delete Track Failure', props<{ error: any }>());
 
+
+
+export const toggleFavorite = createAction(
+  '[Track] Toggle Favorite',
+  props<{ trackId: number }>()
+);
+export const toggleFavoriteSuccess = createAction(
+  '[Track] Toggle Favorite Success',
+  props<{ trackId: number }>()
+);
+
+export const toggleFavoriteFailure = createAction(
+  '[Track] Toggle Favorite Failure',
+  props<{ error: any }>()
+);

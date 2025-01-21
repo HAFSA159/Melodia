@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {TracksService} from '../features/services/tracks.service';
 import * as TrackActions from './track.actions';
@@ -68,6 +68,20 @@ export class TrackEffects {
         this.trackService.deleteTrack(Number(action.trackId)).pipe(
           map(() => TrackActions.deleteTrackSuccess({trackId: action.trackId})),
           catchError(error => of(TrackActions.deleteTrackFailure({error})))
+        )
+      )
+    )
+  );
+
+  toggleFavorite$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TrackActions.toggleFavorite),
+      switchMap(({ trackId }) =>
+        this.trackService.toggleFavorite(trackId).pipe(
+          map(() => TrackActions.toggleFavoriteSuccess({ trackId })),
+          catchError((error) =>
+            of(TrackActions.toggleFavoriteFailure({ error }))
+          )
         )
       )
     )

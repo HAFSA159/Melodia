@@ -7,6 +7,7 @@ import * as TrackActions from '../../store/track.actions';
 import * as fromTrack from '../../store/track.selectors';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-library',
@@ -19,6 +20,7 @@ export class LibraryComponent implements OnInit {
   editMode: boolean = false;
   trackToEdit: Track | null = null;
   submitted: boolean = false;
+  ListFavoris = false;
   categories: string[] = [
     'Rock', 'Pop', 'Hip Hop', 'Jazz', 'Classical', 'Electronic', 'Country',
     'Metal', 'Latin', 'K-Pop', 'Indie', 'Disco', 'Trap', 'Techno', 'House',
@@ -45,6 +47,11 @@ export class LibraryComponent implements OnInit {
 
   ngOnInit() {
     this.loadTracks();
+    this.tracks$ = this.store.select(fromTrack.selectAllTracks).pipe(
+      map((tracks) =>
+        this.ListFavoris ? tracks.filter((track) => track.isFavorite) : tracks
+      )
+    );
   }
 
   loadTracks() {
@@ -182,5 +189,26 @@ export class LibraryComponent implements OnInit {
       this.router.navigate(['/track/track-details', id]);
     }
   }
+  toggleFavorite(trackId: number): void {
+    this.store.dispatch(TrackActions.toggleFavorite({ trackId }));
+  }
+
+  onToggleFavorite(trackId: number): void {
+    this.toggleFavorite(trackId);
+  }
+
+
+  showFavorite(): void {
+    this.ListFavoris = true;
+    this.tracks$ = this.store.select(fromTrack.selectAllTracks).pipe(
+      map((tracks) => tracks.filter((track) => track.isFavorite))
+    );
+  }
+
+  showTracks(): void {
+    this.ListFavoris = false;
+    this.tracks$ = this.store.select(fromTrack.selectAllTracks);
+  }
+
 
 }

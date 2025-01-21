@@ -28,9 +28,14 @@ export const trackReducer = createReducer(
     ...state,
     tracks: state.tracks.filter(t => t.id !== Number(trackId))
   })),
-  on(TrackActions.deleteTrackFailure, (state, { error }) => ({ ...state, error }))
+  on(TrackActions.deleteTrackFailure, (state, { error }) => ({ ...state, error })),
 
-
+  on(TrackActions.toggleFavorite, (state, { trackId }) => {
+    const updatedTracks = state.tracks.map((track) =>
+      track.id === trackId ? { ...track, isFavorite: !track.isFavorite } : track
+    );
+    return { ...state, tracks: updatedTracks };
+  }),
 
 
 
