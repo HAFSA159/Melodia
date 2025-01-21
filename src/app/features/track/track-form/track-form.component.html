@@ -3,37 +3,54 @@
   <form [formGroup]="trackForm" (ngSubmit)="addTrack()" class="form">
     <div class="form-group">
       <label for="title" class="form-label">Track Name</label>
-      <input formControlName="title" id="title" class="form-input"/>
+      <input formControlName="title" id="title" class="form-input" />
       <div *ngIf="submitted && f['title'].errors" class="form-error">
-        <span *ngIf="f['title'].errors?.['required']">Track name is required</span>
+        <span *ngIf="f['title'].errors?.['required']"
+        >Track name is required</span
+        >
       </div>
     </div>
 
     <div class="form-group">
       <label for="artist" class="form-label">Artist</label>
-      <input formControlName="artist" id="artist" class="form-input"/>
+      <input formControlName="artist" id="artist" class="form-input" />
       <div *ngIf="submitted && f['artist'].errors" class="form-error">
-        <span *ngIf="f['artist'].errors?.['required']">Artist name is required</span>
+        <span *ngIf="f['artist'].errors?.['required']"
+        >Artist name is required</span
+        >
       </div>
     </div>
 
     <div class="form-group">
       <label for="description" class="form-label">Description</label>
-      <textarea formControlName="description" id="description" class="form-input"></textarea>
+      <textarea
+        formControlName="description"
+        id="description"
+        class="form-input"
+      ></textarea>
     </div>
 
     <div class="form-group">
       <label for="category" class="form-label">Category</label>
-      <select formControlName="category" id="category"  class="form-select">
+      <select formControlName="category" id="category" class="form-select">
         <option value="">Select a category</option>
-        <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
       </select>
       <div *ngIf="submitted && f['category'].errors" class="form-error">
-        <span *ngIf="f['category'].errors?.['required']">Category is required</span>
+        <span *ngIf="f['category'].errors?.['required']"
+        >Category is required</span
+        >
       </div>
     </div>
     <div class="form-group">
-      <img *ngIf="trackForm.get('imageUrl')?.value" [src]="trackForm.get('imageUrl')?.value" alt="Uploaded Image"  />
+      <img
+        *ngIf="trackForm.get('imageUrl')?.value"
+        [src]="trackForm.get('imageUrl')?.value"
+        alt="Uploaded Image"
+        class="hidden"
+      />
     </div>
     <div class="form-group">
       <label for="imageUpload" class="form-label">Upload Image</label>
@@ -48,12 +65,10 @@
       </div>
     </div>
 
-    <!--<div class="form-group">
-      <label for="audioUpload" class="form-label">Upload Audio</label>
-      <input formControlName="audioFile" type="file" (change)="onAudioUpload($event)" id="audioUpload" class="form-input" accept="audio/*" />
-    </div>-->
-
-
+    <div>
+      <label for="audio">Audio File</label>
+      <input id="audio" type="file" (change)="onAudioUpload($event)" />
+    </div>
 
     <button type="submit" class="submit-btn">Add Track</button>
   </form>

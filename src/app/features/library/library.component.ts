@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Track } from '../../models/track.model';
 import * as TrackActions from '../../store/track.actions';
 import * as fromTrack from '../../store/track.selectors';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-library',
@@ -13,38 +14,24 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./library.component.scss'],
 })
 export class LibraryComponent implements OnInit {
-  tracks$: Observable<Track[]> = of([]);
+  tracks$: Observable<Track[]>;
   trackForm: FormGroup;
   editMode: boolean = false;
   trackToEdit: Track | null = null;
   submitted: boolean = false;
   categories: string[] = [
-    'Rock',
-    'Pop',
-    'Hip Hop',
-    'Jazz',
-    'Classical',
-    'Electronic',
-    'Country',
-    'Metal',
-    'Latin',
-    'K-Pop',
-    'Indie',
-    'Disco',
-    'Trap',
-    'Techno',
-    'House',
-    'Opera',
-    'Dancehall',
-    'World Music',
-    'Lo-fi',
-    'Chillout',
-    'Hardcore',
-    'Soundtrack',
-    'chaabi',
+    'Rock', 'Pop', 'Hip Hop', 'Jazz', 'Classical', 'Electronic', 'Country',
+    'Metal', 'Latin', 'K-Pop', 'Indie', 'Disco', 'Trap', 'Techno', 'House',
+    'Opera', 'Dancehall', 'World Music', 'Lo-fi', 'Chillout', 'Hardcore',
+    'Soundtrack', 'Chaabi'
   ];
 
-  constructor(private store: Store, private fb: FormBuilder, private sanitizer: DomSanitizer) {
+  constructor(
+    private store: Store,
+    private router: Router,
+    private fb: FormBuilder,
+    private sanitizer: DomSanitizer
+  ) {
     this.tracks$ = this.store.select(fromTrack.selectAllTracks);
     this.trackForm = this.fb.group({
       title: ['', Validators.required],
@@ -77,8 +64,14 @@ export class LibraryComponent implements OnInit {
     }
   }
 
+  onImageUpload(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.trackForm.get('imageUrl')?.setValue(file);
+    }
+  }
+
   getSafeImageUrl(url: string | undefined): SafeUrl | null {
-    // If no image URL is provided, return null and nothing will be displayed
     return url ? this.sanitizer.bypassSecurityTrustUrl(url) : null;
   }
 
@@ -91,7 +84,6 @@ export class LibraryComponent implements OnInit {
       artist: track.artist,
       category: track.category,
       description: track.description,
-      imageUrl: track.imageUrl,  // Ensure imageUrl is passed for editing
     });
   }
 
@@ -99,6 +91,7 @@ export class LibraryComponent implements OnInit {
     this.trackToEdit = null;
     this.trackForm.reset();
     this.editMode = false;
+    this.submitted = false;
   }
 
   async addOrUpdateTrack() {
@@ -111,16 +104,13 @@ export class LibraryComponent implements OnInit {
     const formValue = this.trackForm.value;
 
     try {
-      // Wait for the duration calculation to resolve
       const duration = await this.calculateAudioDuration(formValue.audioFile);
 
-      // Convert the image to base64
       let imageBase64 = '';
       if (formValue.imageUrl) {
         imageBase64 = await this.convertImageToBase64(formValue.imageUrl);
       }
 
-      // Set createdAt to the current date for new tracks
       const createdAt = new Date();
 
       const track: Track = {
@@ -128,10 +118,10 @@ export class LibraryComponent implements OnInit {
         artist: formValue.artist,
         category: formValue.category,
         description: formValue.description,
-        imageUrl: imageBase64, // Store the image as base64
-        audioFile: formValue.audioFile,
-        duration: duration, // The value of duration will now be a number
-        createdAt: createdAt // Add the createdAt here
+        imageUrl: imageBase64,
+        duration: duration,
+        createdAt: createdAt,
+        isFavorite: false,
       };
 
       if (this.editMode && this.trackToEdit) {
@@ -140,18 +130,18 @@ export class LibraryComponent implements OnInit {
           ...track, // Merge the updated values
         };
         this.store.dispatch(TrackActions.updateTrack({ track: updatedTrack }));
-        this.store.dispatch(TrackActions.loadTracks());
       } else {
         this.store.dispatch(TrackActions.addTrack({ track }));
       }
 
+      this.store.dispatch(TrackActions.loadTracks());
       this.resetForm();
     } catch (error) {
-      console.error('Error calculating audio duration:', error);
+      console.error('Error processing track:', error);
     }
   }
 
-// Convert image to base64
+  // Convert image to base64
   convertImageToBase64(imageFile: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -186,4 +176,11 @@ export class LibraryComponent implements OnInit {
     this.trackToEdit = null;
     this.submitted = false;
   }
+
+  goToTrackDetails(id: number | undefined) {
+    if (id !== undefined) {
+      this.router.navigate(['/track/track-details', id]);
+    }
+  }
+
 }

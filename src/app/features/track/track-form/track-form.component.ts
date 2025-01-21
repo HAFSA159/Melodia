@@ -1,12 +1,19 @@
+import { AudioDbService } from './../../../core/audio-db.service';
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Track } from '../../../models/track.model';
 import * as TrackActions from '../../../store/track.actions';
 import * as ImageActions from '../../../store/image/image.actions';
-import {selectCurrentImageUrl} from "../../../store/image/image.selectors";
-import {Observable} from "rxjs";
+import { selectCurrentImageUrl } from '../../../store/image/image.selectors';
+import { Observable } from 'rxjs';
+import { IndexedDbService } from '../../../core/indexed-db.service';
 
 @Component({
   selector: 'app-track-form',
@@ -39,14 +46,17 @@ export class TrackFormComponent implements OnInit {
     'Chillout',
     'Hardcore',
     'Soundtrack',
-    'chaabi'
+    'chaabi',
   ];
-  imageUrl$: Observable<string | undefined> = this.store.select(selectCurrentImageUrl);
-
+  imageUrl$: Observable<string | undefined> = this.store.select(
+    selectCurrentImageUrl
+  );
 
   constructor(
-    private store:  Store<{ image: any }>,
-    private router: Router
+    private store: Store<{ image: any }>,
+    private router: Router,
+    private AudioDbService: AudioDbService,
+    private dbService: IndexedDbService
   ) {
     this.trackForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
@@ -62,21 +72,20 @@ export class TrackFormComponent implements OnInit {
     });
   }
 
-
-
+  selectedAudioFile: File | null = null;
 
   ngOnInit() {
     this.categories.sort((a, b) => a.localeCompare(b));
-
   }
 
-  get f() { return this.trackForm.controls; }
-
+  get f() {
+    return this.trackForm.controls;
+  }
 
   onAudioUpload(event: any) {
     const file = event.target.files[0];
     if (file) {
-      this.trackForm.get('audioFile')?.setValue(file);
+      this.selectedAudioFile = file;
     }
   }
 
@@ -96,7 +105,8 @@ export class TrackFormComponent implements OnInit {
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+    if (file.size > 5 * 1024 * 1024) {
+      // 5MB limit
       console.error('File size exceeds the limit of 5MB.');
       return;
     }
@@ -106,26 +116,44 @@ export class TrackFormComponent implements OnInit {
 
     // Dispatch the image upload action
     this.store.dispatch(
-      ImageActions.uploadImage({ image: new File([file], file.name, { type: file.type }) })
+      ImageActions.uploadImage({
+        image: new File([file], file.name, { type: file.type }),
+      })
     );
 
     // Clear the file input
     fileInput.value = '';
   }
 
-
-  addTrack() {
+  async addTrack() {
     this.submitted = true;
 
-    if (this.trackForm.valid && this.trackForm.get('imageUrl')?.value) {
+    if (
+      this.trackForm.valid &&
+      this.trackForm.get('imageUrl')?.value &&
+      this.selectedAudioFile
+    ) {
       const track: Track = { ...this.trackForm.value };
 
-      this.store.dispatch(TrackActions.addTrack({ track }));
-      this.router.navigate(['/library']);
+      // Upload the audio file to audiodb
+      this.AudioDbService.addAudioFile(this.selectedAudioFile).subscribe(
+        (audio) => {
+          // Associate the audioId with the track
+          track.audioId = audio.id;
+
+          // Add the track to musicdb
+          this.dbService
+            .addTrackWithAudio(track, this.selectedAudioFile!)
+            .subscribe(() => {
+              console.log('Track added successfully');
+              this.router.navigate(['/library']);
+            });
+        }
+      );
     } else {
-      console.error('Form is invalid or image URL is not available.');
+      console.error(
+        'Form is invalid, image URL is not available, or audio file is missing.'
+      );
     }
   }
-
-
 }

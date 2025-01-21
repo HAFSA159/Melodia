@@ -1,99 +1,162 @@
-<section class="min-h-screen bg-gradient-to-br from-purple-900 to-black">
-  <!-- Header avec l'icône et le titre -->
+<section class="min-h-screen bg-gradient-to-br from-purple-900 to-black text-white">
+  <!-- Header with icon and title -->
   <div class="flex w-full justify-start items-center p-6 gap-4">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
-      <path
-        d="M2 9C2 5.70017 2 4.05025 3.02513 3.02513C4.05025 2 5.70017 2 9 2H11C14.2998 2 15.9497 2 16.9749 3.02513C18 4.05025 18 5.70017 18 9V11C18 14.2998 18 15.9497 16.9749 16.9749C15.9497 18 14.2998 18 11 18H9C5.70017 18 4.05025 18 3.02513 16.9749C2 15.9497 2 14.2998 2 11V9Z"
-        stroke="currentColor" stroke-width="2"/>
-      <path
-        d="M18.2383 7C19.5732 7.08138 20.4232 7.30467 21.036 7.91738C22 8.88143 22 10.433 22 13.5363V15.4171C22 18.5203 22 20.0719 21.036 21.036C20.0719 22 18.5203 22 15.4171 22H13.5363C10.433 22 8.88143 22 7.91738 21.036C7.30467 20.4232 7.08138 19.5732 7 18.2383"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <path
-        d="M11 12V6C11.2222 6.4 11.4 8.08 13 8.4M11 12C11 13.1046 10.1046 14 9 14C7.89543 14 7 13.1046 7 12C7 10.8954 7.89543 10 9 10C10.1046 10 11 10.8954 11 12Z"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
     </svg>
-    <h1 class="text-xl font-extrabold capitalize leading-none tracking-tight text-white md:text-2xl lg:text-3xl">
+    <h1 class="text-xl font-extrabold capitalize leading-none tracking-tight md:text-2xl lg:text-3xl">
       Library
     </h1>
   </div>
 
-  <div *ngIf="editMode" class="modal-overlay" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <form [formGroup]="trackForm" (ngSubmit)="addOrUpdateTrack()">
-        <h2>{{ editMode ? 'Update Track' : 'Add Track' }}</h2>
-        <input formControlName="title" placeholder="Track Title" class="input-class"/>
-        <input formControlName="artist" placeholder="Artist Name" class="input-class"/>
-        <select formControlName="category" class="input-class">
-          <option value="" disabled selected>Select Category</option>
-          <option *ngFor="let category of categories" [value]="category">
-            {{ category }}
-          </option>
-        </select>
-        <textarea formControlName="description" placeholder="Track Description" class="input-class"></textarea>
-        <button type="submit" [disabled]="trackForm.invalid" class="submit-btn">{{ editMode ? 'Update Track' : 'Add Track' }}
-        </button>
-        <button type="button" (click)="closeModal()" class="close-btn">
-          Close
-        </button>
+  <!-- Add/Edit Track Modal -->
+  <div *ngIf="editMode" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white rounded-lg p-8 max-w-md w-full text-black">
+      <h2 class="text-2xl font-bold mb-4">{{ editMode ? 'Edit Track' : 'Add Track' }}</h2>
+      <form [formGroup]="trackForm" (ngSubmit)="addOrUpdateTrack()" class="space-y-4">
+        <div>
+          <label for="title" class="block text-sm font-medium text-gray-700">Track Name</label>
+          <input formControlName="title" id="title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+          <div *ngIf="submitted && trackForm.get('title')?.errors" class="text-red-500 text-sm mt-1">
+            Track name is required
+          </div>
+        </div>
+
+        <div>
+          <label for="artist" class="block text-sm font-medium text-gray-700">Artist</label>
+          <input formControlName="artist" id="artist" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+          <div *ngIf="submitted && trackForm.get('artist')?.errors" class="text-red-500 text-sm mt-1">
+            Artist name is required
+          </div>
+        </div>
+
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea formControlName="description" id="description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+        </div>
+
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+          <select formControlName="category" id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <option value="">Select a category</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
+          <div *ngIf="submitted && trackForm.get('category')?.errors" class="text-red-500 text-sm mt-1">
+            Category is required
+          </div>
+        </div>
+
+        <div>
+          <label for="imageUrl" class="block text-sm font-medium text-gray-700">Upload Image</label>
+          <input type="file" id="imageUrl" (change)="onImageUpload($event)" accept="image/*" class="mt-1 block w-full" />
+          <div *ngIf="submitted && trackForm.get('imageUrl')?.errors" class="text-red-500 text-sm mt-1">
+            Image is required
+          </div>
+        </div>
+
+        <div>
+          <label for="audioFile" class="block text-sm font-medium text-gray-700">Audio File</label>
+          <input type="file" id="audioFile" (change)="onAudioUpload($event)" accept="audio/*" class="mt-1 block w-full" />
+          <div *ngIf="submitted && trackForm.get('audioFile')?.errors" class="text-red-500 text-sm mt-1">
+            Audio file is required
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-2">
+          <button type="button" (click)="closeModal()" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            {{ editMode ? 'Update Track' : 'Add Track' }}
+          </button>
+        </div>
       </form>
     </div>
   </div>
 
   <!-- Table Content -->
-  <div class="px-20">
+  <div class="px-4 sm:px-6 lg:px-8">
+    <!-- Add Track Button -->
+    <div class="mb-4">
+      <button (click)="editMode = true; trackToEdit = null; trackForm.reset()" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Add Track
+      </button>
+    </div>
+
     <!-- Table Header -->
     <div class="grid grid-cols-5 border-b border-purple-700 pb-2 text-sm font-medium">
-      <div class="col-span-1">Title</div>
+      <div class="col-span-2">Title</div>
       <div class="col-span-1">Artist</div>
       <div class="col-span-1">Category</div>
-      <div class="col-span-1">Duration</div>
-      <div class="col-span-1">Operation</div>
+      <div class="col-span-1">Actions</div>
     </div>
 
     <!-- Table Content -->
     <ng-container *ngIf="tracks$ | async as tracks">
       <div *ngIf="tracks.length > 0; else noTracks">
-        <div *ngFor="let track of tracks" class="grid grid-cols-5 py-3 border-b border-purple-800 hover:bg-purple-800/50">
-          <div class="col-span-1 flex items-center gap-3">
-            <div class="w-10 h-10 rounded bg-purple-700/30 overflow-hidden">
-              <img *ngIf="track.imageUrl" [src]="track.imageUrl" alt="Track Image" />
+        <ng-container *ngFor="let track of tracks">
+          <div class="grid grid-cols-5 py-3 border-b border-purple-800 hover:bg-purple-800/50">
+            <div class="col-span-2 flex items-center gap-3">
+              <div class="w-10 h-10 rounded bg-purple-700/30 overflow-hidden">
+                <img
+                  [src]="track.imageUrl ? getSafeImageUrl(track.imageUrl) : 'assets/images/track_default_bg.jpg'"
+                  alt="Track Image"
+                  class="w-full h-full object-cover"
+                />              </div>
+              <span class="text-sm">{{ track.title }}</span>
             </div>
-            <span class="text-sm">{{ track.title }}</span>
+
+            <div class="col-span-1 flex items-center text-sm">
+              {{ track.artist }}
+            </div>
+
+            <div class="col-span-1 flex items-center text-sm">
+              {{ track.category }}
+            </div>
+
+            <div class="col-span-1 flex items-center text-sm gap-4">
+              <!-- Edit Icon -->
+              <button (click)="editTrack(track)" class="text-yellow-500 hover:text-yellow-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </button>
+              <!-- Delete Icon -->
+              <button (click)="deleteTrack(track.id!)" class="text-red-500 hover:text-red-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+              <!-- Details Icon -->
+              <button (click)="goToTrackDetails(track.id)" class="text-blue-500 hover:text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
+
+
+            </div>
           </div>
-
-          <div class="col-span-1 flex items-center text-sm text-start">{{ track.artist }}</div>
-
-          <div class="col-span-1 flex items-center text-sm">{{ track.category }}</div>
-
-          <div class="flex items-center">
-            <span class="text-sm text-gray-500">//{{ track.duration }}</span>
-          </div>
-
-          <div class="col-span-1 flex items-center text-sm gap-4">
-            <!-- Update Icon -->
-            <button (click)="editTrack(track)" class="hover:text-yellow-500">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4h10M9 16v4a1 1 0 001 1h4m-5-5l6-6a2 2 0 012.828 0l2 2a2 2 0 010 2.828l-6 6m-4 2H7a2 2 0 01-2-2v-4a2 2 0 01.586-1.414l10-10"
-                />
-              </svg>
-            </button>
-            <!-- Delete Icon -->
-            <button class="hover:text-red-500" (click)="deleteTrack(track.id!)">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
-        </div>
+        </ng-container>
       </div>
     </ng-container>
 
     <ng-template #noTracks>
-      <div class="text-center py-4 text-gray-400">
-        No tracks available
-      </div>
+      <div class="text-center py-4 text-gray-400">No tracks available</div>
     </ng-template>
   </div>
 </section>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {IndexedDbService} from "../../core/indexed-db.service";
+import {Track} from "../../models/track.model";
 
 @Injectable({
   providedIn: 'root',
@@ -27,4 +28,6 @@ export class TracksService {
   deleteTrack(id: number): Observable<void> {
     return this.indexedDbService.deleteTrack(id);
   }
+
 }
+

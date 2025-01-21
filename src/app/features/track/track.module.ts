@@ -5,18 +5,15 @@ import { TrackRoutingModule } from './track-routing.module';
 import { TrackComponent } from './track.component';
 import { TrackFormComponent } from './track-form/track-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {TrackDetailsComponent} from "./track-details/track-details.component";
-
+import { TrackDetailsComponent } from './track-details/track-details.component';
 
 @NgModule({
-  declarations: [
-    TrackComponent,
-  ],
+  declarations: [TrackComponent, TrackFormComponent, TrackDetailsComponent],
   imports: [
     CommonModule,
     TrackRoutingModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class TrackModule { }
+export class TrackModule {}

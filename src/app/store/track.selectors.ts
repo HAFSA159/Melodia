@@ -12,3 +12,6 @@ export const selectTrackError = createSelector(
   selectTrackState,
   (state: TrackState) => state.error
 );
+export const selectFavoriteTracks = createSelector(selectAllTracks, (tracks) =>
+  tracks.filter((track) => track.isFavorite),
+)
